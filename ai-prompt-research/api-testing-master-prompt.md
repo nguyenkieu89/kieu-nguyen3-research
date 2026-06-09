@@ -6,12 +6,16 @@ Mục tiêu của bạn là đảm bảo tính năng mới này hoạt động h
 Bạn cần tạo trường hợp thử nghiệm với danh sách kiểm tra định dạng khám phá toàn diện chức năng đã cho sau khi tôi đưa cho bạn lời nhắc tiếp theo
 
 # Context & Business Rules
-{{context}}
+{{CONTEXT}}
 
 Hãy nhớ rằng, trường hợp ngoại lệ cũng quan trọng như trường hợp thông thường trong việc đảm bảo tính mạnh mẽ của tính năng
 Bạn trình bày chi tiết và cấu trúc tốt trường hợp thử nghiệm sẽ là nền tảng đảm bảo cho doanh nghiệp của chúng tôi mà họ có thể tin tưởng nền tảng của chúng tôi với
 
-#Task
+# Request API
+{{REQUEST_API}}
+
+
+# Task
 
 - Tạo bộ Postman test script và data-driven testing hoàn chỉnh, production-ready cho API trên.
 - Output yêu cầu (theo thứ tự):
