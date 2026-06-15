@@ -19,6 +19,64 @@ Bạn cần tạo trường hợp thử nghiệm với danh sách kiểm tra đ�
 
 ---
 
+# [TEST DESIGN STRATEGY]
+
+Thiết kế testcase theo Risk-Based Testing.
+
+Thứ tự ưu tiên:
+
+
+Priority 1 (Critical)
+- Business Rules
+- Functional Flow
+- Data Integrity
+
+Priority 2 (High)
+- Input Validation
+- Boundary Testing
+- Contract Testing
+
+Priority 3 (Medium)
+- Authentication
+- Authorization
+- Security
+
+Priority 4 (Medium)
+- Performance
+- Concurrency
+
+Priority 5 (Low)
+- Compatibility
+- Non-functional checks
+
+Đối với mỗi Business Rule bắt buộc tạo:
+
+1 Positive Test Case
+1 Negative Test Case
+1 Boundary Test Case
+
+Mỗi field trong request phải được đánh giá:
+
+- Required
+- Optional
+- Data Type
+- Length
+- Format
+- Allowed Characters
+- Nullability
+- Boundary Values
+
+Áp dụng các kỹ thuật kiểm thử:
+
+- Equivalence Partitioning
+- Boundary Value Analysis
+- Decision Table Testing
+- State Transition Testing (nếu phù hợp)
+- Error Guessing
+- Risk-Based Testing
+
+---- 
+
 # [STRUCTURE & DATA RULES]
 {{CONTEXT}}
 
@@ -28,6 +86,97 @@ Bạn trình bày chi tiết và cấu trúc tốt trường hợp thử nghiệ
 # [REQUEST API]
 {{REQUEST_API}}
 
+
+---
+
+# [FIELD ANALYSIS ENGINE]
+
+Trước khi tạo testcase, phải phân tích từng field theo format:
+
+{
+"fieldName": "",
+"required": true/false,
+"dataType": "",
+"validationRules": [],
+"boundaryValues": [],
+"riskLevel": ""
+}
+
+Nếu không xác định được rule từ API Spec thì phải suy luận từ:
+
+- field name
+- business rules
+- API semantics
+
+Không được bỏ sót field nào.
+
+---
+
+# [SECURITY PAYLOAD LIBRARY]
+
+SQL Injection:
+
+'
+''
+' OR 1=1 --
+admin'--
+'; DROP TABLE customer;--
+
+XSS:
+
+<script>alert(1)</script>
+
+<img src=x onerror=alert(1)>
+
+"><script>alert(1)</script>
+
+Path Traversal:
+
+../../etc/passwd
+
+..\..\windows\system32
+
+Null Byte:
+
+%00
+
+Command Injection:
+
+; ls -la
+
+&& cat /etc/passwd
+
+---
+
+# [POSTMAN BEST PRACTICES]
+
+Ưu tiên:
+
+
+pm.collectionVariables
+
+sau đó:
+
+pm.environment
+
+Không hardcode:
+
+token
+customer_id
+base_url
+
+Tất cả phải dùng variable.
+
+Script phải:
+
+- Reusable
+- Maintainable
+- CI/CD Friendly
+
+
+Không sử dụng deprecated APIs.
+
+---
 
 # [TASK]
 
@@ -115,7 +264,62 @@ Phân bổ datasets:
 
 - Lưu thành file json với tên là test-case.json
 
+---
 
+# [OUTPUT CONTRACT]
+
+Output phải theo đúng thứ tự:
+
+1. FIELD_ANALYSIS
+2. PRE_REQUEST_SCRIPT
+3. TEST_SCRIPT
+4. DATA_DRIVEN_TESTING
+5. TEST_CASE_MATRIX
+
+Không được thay đổi thứ tự.
+
+Không được bỏ sót section.
+
+Không được thêm giải thích ngoài các section yêu cầu.
+
+Mọi code phải nằm trong code block.
+
+Mọi JSON phải là JSON hợp lệ.
+
+Tự kiểm tra syntax trước khi xuất kết quả.
+
+---
+
+# [SELF REVIEW CHECKLIST]
+
+Trước khi xuất kết quả hãy tự kiểm tra:
+
+- Đã cover tất cả business rules
+
+- Đã cover tất cả fields
+
+- Có Positive cases
+
+- Có Negative cases
+
+- Có Boundary cases
+
+- Có Security cases
+
+- Có Contract validation
+
+- Có Data-driven testing >= 30 datasets
+
+- JSON hợp lệ
+
+- Không có syntax error
+
+- Không có testcase trùng lặp
+
+
+Chỉ xuất kết quả sau khi tất cả điều kiện trên đạt.
+
+---
 
 General Requirements:
 - Dùng pm.test() với tên test rõ ràng (tiếng Việt OK)
