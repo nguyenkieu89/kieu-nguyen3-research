@@ -1,0 +1,13 @@
+{{ROLE}}
+
+{{STRATEGY}}
+
+{{POSTMAN_RULES}}
+
+{{SECURITY_LIBRARY}}
+
+{{OUTPUT}}
+
+{{TASK}}
+
+{{CONTEXT}}
