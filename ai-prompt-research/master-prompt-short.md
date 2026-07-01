@@ -1,8 +1,4 @@
-{{ROLE}}
 
-{{STRATEGY}}
-
-{{OUTPUT}}
 
 {{CONTEXT}}
 
